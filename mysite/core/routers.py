@@ -1,0 +1,3 @@
+from rest_framework_extensions.routers import ExtendedDefaultRouter
+
+# from rest_framework_friendship import views
