@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&^@%iy=mjjdwnty+^$_uin@^oek(hjmkf!gk9pd-6+v#w-in=g'
+SECRET_KEY = 'd5jj$q_(mfx7iuae8lr0#o3-t0*2+x6c=r9%h$+mzyu9&(#e*)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,9 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'djangae',
-    'djangae.contrib.contenttypes',
-    'djangae.contrib.security'
 ]
 
 MIDDLEWARE = [
@@ -50,7 +47,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'djangae.contrib.security.middleware.AppEngineSecurityMiddleware'
 ]
 
 ROOT_URLCONF = 'mysite.urls'
