@@ -16,6 +16,13 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from .view import api_root, api_v1_root
+
 urlpatterns = [
+    # API
+    url(r'^api/$', api_root, name='index'),
+    url(r'^api/v1/$', api_v1_root, name='v1-root'),
+
+    # Admin
     url(r'^admin/', admin.site.urls),
 ]

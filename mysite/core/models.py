@@ -12,5 +12,3 @@ class Profile(models.Model):
     website = models.CharField(max_length=30, blank=True)
     twitter = models.CharField(max_length=30, blank=True)
     avatar = models.CharField(max_length=30, blank=True)
-
-
