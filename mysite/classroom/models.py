@@ -46,3 +46,11 @@ class Class(models.Model):
 
     def __str__(self):
         return '%s' % self.name
+
+
+class ClassroomPasscode(models.Model):
+    """
+    This is a passcode used to connect users to the room.
+
+    """
+    classroom = models.ForeignKey(Class)

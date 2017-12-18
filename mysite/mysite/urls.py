@@ -13,15 +13,18 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 
 from .view import api_root, api_v1_root
 
 urlpatterns = [
     # API
-    url(r'^api/$', api_root, name='index'),
-    url(r'^api/v1/$', api_v1_root, name='v1-root'),
+    # url(r'^api/$', api_root, name='index'),
+    # url(r'^api/v1/$', api_v1_root, name='v1-root'),
+
+    url(r'^', include('classroom.urls'), name='index'),
+    url(r'^api/', include('mysite.api'), name='api'),
 
     # Admin
     url(r'^admin/', admin.site.urls),

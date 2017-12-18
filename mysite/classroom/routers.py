@@ -4,7 +4,7 @@ from rest_framework_extensions.routers import ExtendedDefaultRouter
 
 
 from classroom import viewsets
-from problem import viewsets as problem_viewsets
+# from problem import viewsets as problem_viewsets
 
 
 router = ExtendedDefaultRouter()
