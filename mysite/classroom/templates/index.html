@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+<div class="row">
+  <div class="col-sm-6 col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <strong>Classroom Info</strong>
+      </div>
+      <div class="list-group">
+        <div class="list-group-item">
+          <div class="list-group-item">
+            <span class="badge pull-right">{{ num_students }}</span>
+            <p class="list-group-item-text text-muted">Students</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
