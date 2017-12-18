@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views import generic
 
 
 from .models import Teacher, Student, Class
@@ -26,3 +27,15 @@ def index(request):
             'num_students': num_students
         },
     )
+
+
+class StudentListView(generic.ListView):
+    model = Student
+    # context_object_name = 'teacher_student_list'  # your own name for the list as a template variable
+    # queryset = Student.objects.filter(title__icontains='war')[:5]  # Get 5 books containing the title war
+    # template_name = 'classroom/my_arbitrary_template_name_list.html'  # Specify your own template name/location
+    #
+
+
+class StudentDetailView(generic.DetailView):
+    model = Student

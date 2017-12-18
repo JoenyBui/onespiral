@@ -32,6 +32,12 @@ class Student(models.Model):
     """
     user = models.OneToOneField(User)
 
+    def __str__(self):
+        return '%s %s'%(self.user.first_name, self.user.last_name)
+
+    # def get_absolute_url(self):
+    #     return reverse('student-detail', args=[str(self.id)])
+
 
 class Class(models.Model):
     """
