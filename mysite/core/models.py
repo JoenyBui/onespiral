@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -12,3 +14,4 @@ class Profile(models.Model):
     website = models.CharField(max_length=30, blank=True)
     twitter = models.CharField(max_length=30, blank=True)
     avatar = models.CharField(max_length=30, blank=True)
+    uuid = models.UUIDField(default=uuid.uuid4, unique=True)

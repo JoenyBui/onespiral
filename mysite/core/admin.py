@@ -5,9 +5,10 @@ from core.models import Profile
 
 class ProfileAdmin(admin.ModelAdmin):
     """
+    Profile Admin View
 
     """
-    list_display = ('user', 'bio', 'location', 'birth_date', 'website', 'twitter')
+    list_display = ('uuid', 'user', 'location', 'birth_date')
 
 
 admin.site.register(Profile, ProfileAdmin)

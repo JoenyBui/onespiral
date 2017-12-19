@@ -128,3 +128,21 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "project-static"),
 )
+
+#### FIREBASE ####
+
+# Firebase Admin Key (Never commit the key to repository)
+FIREBASE_KEY = os.path.join(os.path.split(BASE_DIR)[0], 'secrets', 'fb-prod-key.json')
+
+import firebase_admin
+from firebase_admin import credentials
+
+cred = credentials.Certificate(FIREBASE_KEY)
+
+# If used locally, then this pass in the credential.
+firebase_admin.initialize_app(cred)
+
+# In Google App Engine, there is autodiscovery.
+# firebase_admin.initialize_app()
+
+from firebase_admin import auth
