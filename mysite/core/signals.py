@@ -2,15 +2,27 @@ from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 
+from firebase_admin.auth import create_user
+
+from mysite.settings import fb_app
 from core.models import Profile
 
-
-@receiver(pre_save, sender=User)
-def create_firebase_user(sender, **kwargs):
-    #TODO: When a new user is created, the same user is created in firebase.
-    pass
 
 @receiver(post_save, sender=User)
 def create_profile_root(sender, instance=None, created=False, **kwargs):
     if created:
-        Profile.objects.get_or_create(user=instance)
+        obj = Profile.objects.get_or_create(user=instance)
+
+
+@receiver(post_save, sender=Profile)
+def create_firebase_user(sender, instance=None, created=False, **kwargs):
+    if created:
+        profile = instance
+        user = User.objects.get(profile=instance)
+
+        # Create firebase user
+        fb_user = create_user(uid=str(profile.uuid),
+                              display_name=(user.username if user.username else 'nameless'),
+                              # email=user.email,
+                              # email_verified=False,
+                              app=fb_app)

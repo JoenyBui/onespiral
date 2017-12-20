@@ -140,9 +140,7 @@ from firebase_admin import credentials
 cred = credentials.Certificate(FIREBASE_KEY)
 
 # If used locally, then this pass in the credential.
-firebase_admin.initialize_app(cred)
+fb_app = firebase_admin.initialize_app(cred)
 
 # In Google App Engine, there is autodiscovery.
 # firebase_admin.initialize_app()
-
-from firebase_admin import auth
