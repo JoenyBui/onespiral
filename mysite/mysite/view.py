@@ -33,8 +33,8 @@ class HomeView(View):
 def api_root(request, format=None):
     return Response({
         "v1": reverse("v1-root", request=request, format=format),
-        # "core": reverse("core-root", request=request, format=format),
-        #"api token auth": reverse("api-token", request=request, format=format),
+        # "core": reverse("core ", request=request, format=format),
+        "api token auth": reverse("api-token", request=request, format=format),
         # "documents": reverse("docs", request=request, format=format),
         # "accounts": reverse("rest-auth-root", request=request, format=format),
         # "docs": reverse("api_docs", request=request, format=format)
@@ -65,7 +65,6 @@ def api_core(request, format=None):
 @permission_classes((permissions.AllowAny,))
 def api_v1_root(request, format=None):
     return Response({
-        # "core": reverse("v1:core:api-root", request=request, format=format),
         # "editor": reverse("v1:editor:api-root", request=request, format=format),
         "classroom": reverse("v1:classroom:api-root", request=request, format=format),
         # "problem": reverse("v1:problem:api-root", request=request, format=format),

@@ -2,7 +2,7 @@ from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 
-from firebase_admin.auth import create_user
+from firebase_admin import auth
 
 from mysite.settings import fb_app
 from core.models import Profile
@@ -22,7 +22,7 @@ def create_firebase_user(sender, instance=None, created=False, **kwargs):
         user = User.objects.get(profile=instance)
 
         # Create firebase user
-        fb_user = create_user(uid=str(profile.uuid),
+        fb_user = auth.create_user(uid=str(profile.uuid),
                               display_name=(user.username if user.username else 'nameless'),
                               # email=user.email,
                               # email_verified=False,

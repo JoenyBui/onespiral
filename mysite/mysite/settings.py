@@ -37,9 +37,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     # 3rd-Party Apps
     'rest_framework',
+    'dry_rest_permissions',
+    'rest_framework_extensions',
+
+    # Lot's of auth app, need to condense later.
+    'allauth',
+    'allauth.account',
+    'rest_auth',
+    'rest_framework.authtoken',
+    'rest_auth.registration',
 
     # Project Apps
     'core',
@@ -130,10 +140,12 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "project-static"),
 )
 
+SITE_ID = 1
+
 #### FIREBASE ####
 
 # Firebase Admin Key (Never commit the key to repository)
-FIREBASE_KEY = os.path.join(os.path.split(BASE_DIR)[0], 'secrets', 'fb-prod-key.json')
+FIREBASE_KEY = os.path.join(os.path.split(BASE_DIR)[0], 'secrets', 'fb-staging-key.json')
 
 import firebase_admin
 from firebase_admin import credentials
