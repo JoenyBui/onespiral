@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # 3rd-Party Apps
     'rest_framework',
+    'rest_framework.authtoken',
     'dry_rest_permissions',
     'rest_framework_extensions',
 
@@ -48,7 +49,6 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'rest_auth',
-    'rest_framework.authtoken',
     'rest_auth.registration',
 
     # Project Apps
