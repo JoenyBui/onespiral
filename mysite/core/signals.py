@@ -11,7 +11,8 @@ from core.models import Profile
 @receiver(post_save, sender=User)
 def create_profile_root(sender, instance=None, created=False, **kwargs):
     if created:
-        obj = Profile.objects.get_or_create(user=instance)
+        # Create a new profile row for the new user.
+        Profile.objects.get_or_create(user=instance)
 
 
 @receiver(post_save, sender=Profile)
