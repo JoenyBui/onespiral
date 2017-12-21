@@ -43,7 +43,8 @@ INSTALLED_APPS = [
 
     # Project Apps
     'core',
-    'classroom'
+    'classroom',
+    'writing'
 ]
 
 MIDDLEWARE = [
