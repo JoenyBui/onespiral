@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    'corsheaders',
+
     # 3rd-Party Apps
     'rest_framework',
     'rest_framework.authtoken',
@@ -63,6 +65,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -76,7 +79,9 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, '../../templates')
+            # os.path.join(BASE_DIR, 'templates')
+            os.path.join(BASE_DIR, '../templates')
+            # os.path.join(BASE_DIR, '../../templates')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -99,7 +104,8 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '../../db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, '../db.sqlite3'),
+        # 'NAME': os.path.join(BASE_DIR, '../../db.sqlite3'),
     }
 }
 
@@ -144,7 +150,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     # os.path.join(BASE_DIR, 'project-static')
-    os.path.join(BASE_DIR, "../../project-static"),
+    os.path.join(BASE_DIR, "../project-static"),
+    # os.path.join(BASE_DIR, "../../project-static"),
 )
 
 SITE_ID = 1
@@ -217,5 +224,5 @@ JWT_AUTH = {
 
 #### FIREBASE ####
 # Firebase Admin Key (Never commit the key to repository)
-FIREBASE_KEY = os.path.join(os.path.split(BASE_DIR)[0], 'secrets', 'fb-staging-key.json')
+FIREBASE_KEY = os.path.join(BASE_DIR, '../secrets', 'fb-staging-key.json')
 
