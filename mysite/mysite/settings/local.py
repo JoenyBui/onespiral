@@ -36,3 +36,5 @@ CORS_ALLOW_METHODS = (
     'PUT',
 )
 CORS_ALLOW_CREDENTIALS = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

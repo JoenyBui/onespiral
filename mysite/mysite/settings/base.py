@@ -157,6 +157,16 @@ STATICFILES_DIRS = (
 SITE_ID = 1
 
 
+# EMAIL
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = os.getenv('EMAIL_HOST', '127.0.0.1')
+EMAIL_PORT = os.getenv('EMAIL_PORT', 25)
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'root')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'NoPasswordGiven')
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', True)
+
+
 # Django REST Framework
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -224,5 +234,5 @@ JWT_AUTH = {
 
 #### FIREBASE ####
 # Firebase Admin Key (Never commit the key to repository)
-FIREBASE_KEY = os.path.join(BASE_DIR, '../secrets', 'fb-staging-key.json')
+FIREBASE_KEY = os.path.join(BASE_DIR, '../secrets', 'fb-local-key.json')
 

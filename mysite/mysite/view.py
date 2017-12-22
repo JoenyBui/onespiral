@@ -66,6 +66,7 @@ def api_rest_auth(request, format=None):
 def api_core(request, format=None):
     return Response({
         "profile": reverse("core:core_profile_detail", request=request, format=format),
+        "firebase-token": reverse("core:core_firebase_token", request=request, format=format)
         # "role": reverse("core:core_role_detail", request=request, format=format)
     })
 

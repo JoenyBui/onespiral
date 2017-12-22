@@ -29,5 +29,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 APPEND_SLASH = True
 
+FIREBASE_KEY = os.path.join(BASE_DIR, '../secrets', 'fb-prod-key.json')
+
 # TODO: Remove email backend for now because it doesn't quite work.
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
