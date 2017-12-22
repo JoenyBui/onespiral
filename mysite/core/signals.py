@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 from firebase_admin import auth
 
-from mysite.settings import fb_app
+from mysite.firebase import fb_app
 from core.models import Profile
 
 

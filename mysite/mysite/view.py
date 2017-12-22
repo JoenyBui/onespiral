@@ -31,13 +31,22 @@ class HomeView(View):
 @api_view(('GET', ))
 @permission_classes((permissions.AllowAny,))
 def api_root(request, format=None):
+    # return Response({
+    #     "v1": reverse("v1-root", request=request, format=format),
+    #     # "core": reverse("core ", request=request, format=format),
+    #     "api token auth": reverse("api-token", request=request, format=format),
+    #     # "documents": reverse("docs", request=request, format=format),
+    #     # "accounts": reverse("rest-auth-root", request=request, format=format),
+    #     # "docs": reverse("api_docs", request=request, format=format)
+    # })
     return Response({
         "v1": reverse("v1-root", request=request, format=format),
-        # "core": reverse("core ", request=request, format=format),
-        "api token auth": reverse("api-token", request=request, format=format),
-        # "documents": reverse("docs", request=request, format=format),
-        # "accounts": reverse("rest-auth-root", request=request, format=format),
-        # "docs": reverse("api_docs", request=request, format=format)
+        "core": reverse("core-root", request=request, format=format),
+        "obtain api token auth": reverse("api-token", request=request, format=format),
+        "refresh api token auth": reverse("refresh-api-token", request=request, format=format),
+        "verify token auth": reverse("verify-api-token", request=request, format=format),
+        # "documents": reverse("drfdocs", request=request, format=format),
+        "accounts": reverse("rest-auth-root", request=request, format=format)
     })
 
 
@@ -57,7 +66,7 @@ def api_rest_auth(request, format=None):
 def api_core(request, format=None):
     return Response({
         "profile": reverse("core:core_profile_detail", request=request, format=format),
-        "role": reverse("core:core_role_detail", request=request, format=format)
+        # "role": reverse("core:core_role_detail", request=request, format=format)
     })
 
 

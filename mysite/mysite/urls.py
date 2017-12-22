@@ -16,18 +16,9 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from rest_framework.authtoken import views as restful_view
-
-from .view import api_root, api_v1_root
-
 urlpatterns = [
-    # API
-    # url(r'^api/$', api_root, name='index'),
-    # url(r'^api/v1/$', api_v1_root, name='v1-root'),
-
     url(r'^', include('classroom.urls'), name='index'),
-    url(r'api-token-auth/', restful_view.obtain_auth_token, name="api-token"),
-    url(r'api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^accounts/', include('allauth.urls')),
     url(r'^api/', include('mysite.api'), name='api'),
 
     # Admin
