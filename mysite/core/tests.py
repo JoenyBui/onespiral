@@ -12,22 +12,28 @@ from firebase_admin import auth
 
 class TestProfile(TestCase):
     def setUp(self):
-        self.user = User.objects.create()
-        self.user.save()
+        self.user = User.objects.create(username='_JohnDoe', password='password123', email='john.doe.1@email.com')
 
     def tearDown(self):
         # Clean up the user
         if self.user.profile:
-            auth.delete_user(self.user.profile.uuid)
+            auth.delete_user(str(self.user.profile.uuid))
 
     def test_profile_created(self):
+        self.user.save()
         self.assertIsNotNone(self.user.profile)
 
 
 class TestFirebaseAuth(TestCase):
 
     def setUp(self):
-        self.test_uid = 'eb31ec5c-eb47-4964-90e1-679c4d848d89'
+        self.user = User.objects.create(username='_JohnDoe', password='password123', email='john.doe.2@email.com')
+        self.user.save()
+        self.test_uid = str(self.user.profile.uuid)
+
+    def tearDown(self):
+        if self.user.profile:
+            auth.delete_user(str(self.user.profile.uuid))
 
     def test_firebase_login(self):
         self.assertIsNotNone(auth.get_user(uid=self.test_uid))

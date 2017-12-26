@@ -77,6 +77,7 @@ def api_v1_root(request, format=None):
     return Response({
         # "editor": reverse("v1:editor:api-root", request=request, format=format),
         "classroom": reverse("v1:classroom:api-root", request=request, format=format),
+        "writing": reverse("v1:writing:api-root", request=request, format=format)
         # "problem": reverse("v1:problem:api-root", request=request, format=format),
         # "math": reverse("v1:math:api-root", request=request, format=format),
         # "reading": reverse("v1:reading:api-root", request=request, format=format),

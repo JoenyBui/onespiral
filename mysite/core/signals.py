@@ -23,7 +23,7 @@ def create_firebase_user(sender, instance=None, created=False, **kwargs):
 
         # Create firebase user
         fb_user = auth.create_user(uid=str(profile.uuid),
-                              display_name=(user.username if user.username else 'nameless'),
-                              # email=user.email,
-                              # email_verified=False,
+                              display_name=user.username,
+                              email=user.email,
+                              email_verified=False,
                               app=fb_app)
