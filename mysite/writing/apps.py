@@ -9,4 +9,4 @@ class WritingConfig(AppConfig):
 
     def ready(self):
         # Need to include signals
-        import core.signals
+        import writing.signals

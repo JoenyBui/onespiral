@@ -20,4 +20,4 @@ class WriterSerializers(serializers.ModelSerializer):
 class DocumentSerializers(serializers.ModelSerializer):
     class Meta:
         model = Document
-        fields = ('id', 'writer', 'uuid')
+        fields = ('id', 'title', 'writer', 'uuid')

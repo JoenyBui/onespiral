@@ -10,6 +10,16 @@ from django.test import TestCase
 from firebase_admin import auth
 
 
+class _BaseUserTest(object):
+    def setUp(self):
+        self.user = User.objects.create(username='_JohnDoe', password='password123', email='john.doe.1@email.com')
+
+    def tearDown(self):
+        # Clean up the user
+        if self.user.profile:
+            auth.delete_user(str(self.user.profile.uuid))
+
+
 class TestProfile(TestCase):
     def setUp(self):
         self.user = User.objects.create(username='_JohnDoe', password='password123', email='john.doe.1@email.com')

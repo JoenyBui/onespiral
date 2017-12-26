@@ -235,4 +235,4 @@ JWT_AUTH = {
 #### FIREBASE ####
 # Firebase Admin Key (Never commit the key to repository)
 FIREBASE_KEY = os.path.join(BASE_DIR, '../secrets', 'fb-local-key.json')
-
+FIREBASE_URL = os.getenv('FIREBASE_URL', 'https://spiral-local.firebaseio.com')
