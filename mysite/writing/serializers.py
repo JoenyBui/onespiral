@@ -22,25 +22,11 @@ class WriterSerializers(serializers.ModelSerializer):
 
 
 class DocumentSerializers(serializers.ModelSerializer):
+    user_uuid = serializers.ReadOnlyField(source='writer.user.profile.uuid')
 
     class Meta:
         model = Document
-        fields = ('id', 'uuid', 'title', 'writer', 'created', 'modified')
-
-
-class DocumentHyperlinkSerializers(serializers.HyperlinkedModelSerializer):
-
-    class Meta:
-        model = Document
-        fields = ('url', 'uuid', 'title', 'writer')
-        extra_kwargs = {
-            'url': {
-                'view_name': 'v1:writing:document-detail',
-                'lookup_field': 'uuid'
-            }
-
-            # lookup_field='uuid'
-        }
+        fields = ('uuid', 'title', 'user_uuid', 'created', 'modified')
 
 
 class DocumentSearchSerializer(HaystackSerializer):
@@ -48,7 +34,7 @@ class DocumentSearchSerializer(HaystackSerializer):
     class Meta:
         index_classes = [DocumentIndex]
         fields = [
-            'text', 'title', 'user', 'autocomplete'
+            'text', 'title', 'user', 'uuid', 'autocomplete'
         ]
         ignore_fields = ["text", "autocomplete"]
         field_aliases = {

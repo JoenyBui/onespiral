@@ -30,6 +30,7 @@ class DocumentModelViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     serializer_class = DocumentSerializers
     permission_classes = (permissions.IsAuthenticated, )
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    lookup_field = 'uuid'
 
     def get_queryset(self):
         return Document.objects.filter(writer=self.request.user.writer)

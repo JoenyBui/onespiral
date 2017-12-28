@@ -11,6 +11,7 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     user = indexes.CharField(model_attr='writer')
     created = indexes.CharField(model_attr='created')
     modified = indexes.CharField(model_attr='modified')
+    uuid = indexes.CharField(model_attr='uuid')
 
     def get_model(self):
         return Document
