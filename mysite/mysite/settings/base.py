@@ -58,6 +58,7 @@ INSTALLED_APPS = [
 
     'friendship',  # Django friendship
     'rest_friendship',  # Django REST Friendship
+    'haystack',
 
     # Project Apps
     'core',
@@ -82,8 +83,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            # os.path.join(BASE_DIR, 'templates')
-            os.path.join(BASE_DIR, '../templates')
+            os.path.join(BASE_DIR, 'templates')
+            # os.path.join(BASE_DIR, '../templates')
             # os.path.join(BASE_DIR, '../../templates')
         ],
         'APP_DIRS': True,
@@ -149,12 +150,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-# STATIC_ROOT = os.getenv('STATIC_ROOT', os.path.join(BASE_DIR, '../../project-static'))
+STATIC_ROOT = os.getenv('STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    # os.path.join(BASE_DIR, 'project-static')
-    os.path.join(BASE_DIR, "../project-static"),
-    # os.path.join(BASE_DIR, "../../project-static"),
+    os.path.join(BASE_DIR, 'project-static'),
 )
 
 SITE_ID = 1
@@ -239,3 +238,9 @@ JWT_AUTH = {
 # Firebase Admin Key (Never commit the key to repository)
 FIREBASE_KEY = os.path.join(BASE_DIR, '../secrets', 'fb-local-key.json')
 FIREBASE_URL = os.getenv('FIREBASE_URL', 'https://spiral-local.firebaseio.com')
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    },
+}

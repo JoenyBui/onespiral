@@ -21,9 +21,14 @@ def create_firebase_user(sender, instance=None, created=False, **kwargs):
         profile = instance
         user = User.objects.get(profile=instance)
 
+        kwargs = dict(
+            uid=str(profile.uuid),
+            display_name=user.username,
+            app=fb_app
+        )
+        if user.email:
+            kwargs['email'] = user.email
+            kwargs['email_verified'] = False
+
         # Create firebase user
-        fb_user = auth.create_user(uid=str(profile.uuid),
-                              display_name=user.username,
-                              email=user.email,
-                              email_verified=False,
-                              app=fb_app)
+        fb_user = auth.create_user(**kwargs)

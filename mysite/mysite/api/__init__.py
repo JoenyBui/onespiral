@@ -11,6 +11,10 @@ urlpatterns = [
     # API Browsing View
     url(r'^$', api_root, name='api-index'),
 
+    # Search and Friendship
+    url(r'^search/', include('haystack.urls')),
+    url(r'^friendship/', include(router.urls, namespace='rest_friendship')),
+
     # Authentication
     url(r'^rest-auth/$', api_rest_auth, name='rest-auth-root'),
     url(r'^rest-auth/', include('rest_auth.urls', namespace="rest-auth")),
@@ -20,8 +24,6 @@ urlpatterns = [
     url(r'^api-token-refresh/', refresh_jwt_token, name='refresh-api-token'),
     url(r'^api-token-verify/', verify_jwt_token, name='verify-api-token'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-
-    url(r'^friendship/', include(router.urls, namespace='rest_friendship')),
 
     # Core
     url(r'core/$', api_core, name='core-root'),
