@@ -40,9 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    # 3rd-Party Apps
     'corsheaders',
 
-    # 3rd-Party Apps
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_extensions',
@@ -55,6 +55,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'rest_auth',
     'rest_auth.registration',
+
+    'friendship',  # Django friendship
+    'rest_friendship',  # Django REST Friendship
 
     # Project Apps
     'core',

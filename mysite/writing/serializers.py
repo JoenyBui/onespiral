@@ -18,6 +18,22 @@ class WriterSerializers(serializers.ModelSerializer):
 
 
 class DocumentSerializers(serializers.ModelSerializer):
+
     class Meta:
         model = Document
-        fields = ('id', 'title', 'writer', 'uuid')
+        fields = ('id', 'uuid', 'title', 'writer', 'created', 'modified')
+
+
+class DocumentHyperlinkSerializers(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = Document
+        fields = ('url', 'uuid', 'title', 'writer')
+        extra_kwargs = {
+            'url': {
+                'view_name': 'v1:writing:document-detail',
+                'lookup_field': 'uuid'
+            }
+
+            # lookup_field='uuid'
+        }

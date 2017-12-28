@@ -15,3 +15,11 @@ class Profile(models.Model):
     twitter = models.CharField(max_length=30, blank=True)
     avatar = models.CharField(max_length=30, blank=True)
     uuid = models.UUIDField(default=uuid.uuid4, unique=True)
+
+
+# Add additional methods to user
+def get_uuid(**kwargs):
+    pass
+
+
+User.add_to_class('get_uuid', get_uuid)

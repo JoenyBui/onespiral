@@ -21,6 +21,8 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     url(r'^api/', include('mysite.api'), name='api'),
 
+    url(r'^friendship/', include('friendship.urls')),
+
     # Admin
     url(r'^admin/', admin.site.urls),
 ]

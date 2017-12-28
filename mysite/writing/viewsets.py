@@ -26,3 +26,7 @@ class DocumentModelViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated, )
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
 
+    def get_queryset(self):
+        user = self.request.user
+        writer = user.writer
+        return Document.objects.filter(writer=writer)

@@ -41,6 +41,7 @@ def api_root(request, format=None):
     # })
     return Response({
         "v1": reverse("v1-root", request=request, format=format),
+        "friendship": reverse("rest_friendship:api-root", request=request, format=format),
         "core": reverse("core-root", request=request, format=format),
         "obtain api token auth": reverse("api-token", request=request, format=format),
         "refresh api token auth": reverse("refresh-api-token", request=request, format=format),

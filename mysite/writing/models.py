@@ -17,3 +17,6 @@ class Document(models.Model):
     title = models.TextField(max_length=200, blank=True)
     writer = models.ForeignKey(Writer)
     uuid = models.UUIDField(default=uuid.uuid4, unique=True)
+    created = models.DateTimeField(auto_now_add=True, blank=True)
+    modified = models.DateTimeField(auto_now_add=True, blank=True)
+

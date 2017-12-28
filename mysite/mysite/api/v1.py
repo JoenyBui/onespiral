@@ -9,5 +9,5 @@ __author__ = 'jbui'
 
 urlpatterns = [
     url(r'^classroom/', include(classroom_router.urls, namespace='classroom')),
-    url(r'^writing/', include(writing_router.urls, namespace='writing'))
+    url(r'^writing/', include(writing_router.urls, namespace='writing')),
 ]

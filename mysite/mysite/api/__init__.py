@@ -2,6 +2,8 @@ from django.conf.urls import include, url
 
 from ..view import api_root, api_v1_root, api_rest_auth, api_core
 
+from rest_friendship.routers import router
+
 from rest_framework.authtoken import views as restful_view
 from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token, refresh_jwt_token
 
@@ -18,6 +20,8 @@ urlpatterns = [
     url(r'^api-token-refresh/', refresh_jwt_token, name='refresh-api-token'),
     url(r'^api-token-verify/', verify_jwt_token, name='verify-api-token'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    url(r'^friendship/', include(router.urls, namespace='rest_friendship')),
 
     # Core
     url(r'core/$', api_core, name='core-root'),
