@@ -14,10 +14,11 @@ __author__ = 'jbui'
 
 
 class WriterSerializers(serializers.ModelSerializer):
+    user_uuid = serializers.ReadOnlyField(source='user.profile.uuid')
 
     class Meta:
         model = Writer
-        fields = ('id', 'user')
+        fields = ('user_uuid',)
 
 
 class DocumentSerializers(serializers.ModelSerializer):

@@ -22,6 +22,7 @@ class WriterModelViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     serializer_class = WriterSerializers
     permission_classes = (permissions.IsAuthenticated, )
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    lookup_field = 'user__profile__uuid'
 
 
 class DocumentModelViewSet(NestedViewSetMixin, viewsets.ModelViewSet):

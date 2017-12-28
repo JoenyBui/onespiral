@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 import uuid
 
+from django.utils import timezone
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -11,6 +13,13 @@ from django.contrib.auth.models import User
 
 class Writer(models.Model):
     user = models.OneToOneField(User)
+
+
+class DocumentLink(models.Model):
+    from_user = models.ForeignKey(Writer, related_name='document_link_from_user')
+    to_user = models.ForeignKey(Writer, related_name='document_link_to_userr')
+    permission = models.IntegerField(default=0)
+    modified = models.DateTimeField(default=timezone.now)
 
 
 class Document(models.Model):
