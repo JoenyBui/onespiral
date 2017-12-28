@@ -20,3 +20,5 @@ class Document(models.Model):
     created = models.DateTimeField(auto_now_add=True, blank=True)
     modified = models.DateTimeField(auto_now_add=True, blank=True)
 
+    def get_username(self):
+        return self.writer.user.username

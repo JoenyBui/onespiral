@@ -5,7 +5,10 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 
+from drf_haystack.serializers import HaystackSerializer
+
 from .models import Writer, Document
+from .search_indexes import DocumentIndex
 
 __author__ = 'jbui'
 
@@ -37,3 +40,12 @@ class DocumentHyperlinkSerializers(serializers.HyperlinkedModelSerializer):
 
             # lookup_field='uuid'
         }
+
+
+class DocumentSearchSerializer(HaystackSerializer):
+
+    class Meta:
+        index_classes = [DocumentIndex]
+        fields = [
+            'text', 'title', 'user'
+        ]

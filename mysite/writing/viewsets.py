@@ -4,9 +4,12 @@ from rest_framework import filters
 
 from rest_framework_extensions.mixins import NestedViewSetMixin
 
-from .models import Writer, Document
+from drf_haystack.viewsets import HaystackViewSet
 
-from .serializers import WriterSerializers, DocumentSerializers
+from .models import Writer, Document
+from .search_indexes import DocumentIndex
+
+from .serializers import WriterSerializers, DocumentSerializers, DocumentSearchSerializer
 
 
 __author__ = 'jbui'
@@ -27,6 +30,10 @@ class DocumentModelViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
 
     def get_queryset(self):
-        user = self.request.user
-        writer = user.writer
-        return Document.objects.filter(writer=writer)
+        return Document.objects.filter(writer=self.request.user.writer)
+
+
+class DocumentSearchViewSet(HaystackViewSet):
+    index_models = [Document]
+    serializer_class = DocumentSearchSerializer
+    permission_classes = (permissions.IsAuthenticated, )
