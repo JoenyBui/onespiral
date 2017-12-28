@@ -9,7 +9,7 @@ document_router = router.register(r'document', viewsets.DocumentModelViewSet, 'd
 
 writer_router = router.register(r'writer', viewsets.WriterModelViewSet, 'writer')
 writer_router.register(r'document',
-                        viewsets.DocumentModelViewSet,
-                        base_name='writer-document',
-                        parents_query_lookups=['writer'])
+                       viewsets.DocumentModelViewSet,
+                       base_name='writer-document',
+                       parents_query_lookups=['writer'])
 

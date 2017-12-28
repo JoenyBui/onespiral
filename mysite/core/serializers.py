@@ -1,7 +1,11 @@
 from rest_framework import serializers
 
-from .models import Profile
 from django.contrib.auth.models import User
+
+from drf_haystack.serializers import HaystackSerializer
+
+from .models import Profile
+from .search_indexes import ProfileIndex
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -9,17 +13,19 @@ class ProfileSerializer(serializers.ModelSerializer):
     Profile Serializer
 
     """
-
-    bio = serializers.CharField(source='profile.bio', allow_blank=True)
-    location = serializers.CharField(source='profile.location', allow_blank=True)
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
+    email = serializers.CharField()
+    # bio = serializers.CharField(source='profile.bio', allow_blank=True)
+    # location = serializers.CharField(source='profile.location', allow_blank=True)
     birth_date = serializers.DateField(source='profile.birth_date', allow_null=True)
-    website = serializers.CharField(source='profile.website', allow_blank=True)
-    twitter = serializers.CharField(source='profile.twitter', allow_blank=True)
+    # website = serializers.CharField(source='profile.website', allow_blank=True)
+    # twitter = serializers.CharField(source='profile.twitter', allow_blank=True)
     avatar = serializers.CharField(source='profile.avatar', allow_blank=True)
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'bio', 'location', 'birth_date', 'website', 'twitter', 'avatar')
+        fields = ('first_name', 'last_name', 'email', 'birth_date', 'avatar')
 
     def create(self, validated_data):
         profile_data = validated_data.pop('profile', None)
@@ -37,3 +43,18 @@ class ProfileSerializer(serializers.ModelSerializer):
         if not created and profile_data is not None:
             super(ProfileSerializer, self).update(profile, profile_data)
 
+
+class ProfileSearchSerializer(HaystackSerializer):
+    """
+    Profile Search
+
+    """
+    class Meta:
+        index_classes = [ProfileIndex]
+        fields = [
+            'text', 'first_name', 'last_name', 'email', 'autocomplete'
+        ]
+        ignore_fields = ["text", "autocomplete"]
+        field_aliases = {
+            "q": "autocomplete"
+        }

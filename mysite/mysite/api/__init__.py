@@ -1,6 +1,6 @@
 from django.conf.urls import include, url
 
-from ..view import api_root, api_v1_root, api_rest_auth, api_core
+from ..view import api_root, api_v1_root, api_rest_auth
 
 from rest_friendship.routers import router
 
@@ -25,9 +25,9 @@ urlpatterns = [
     url(r'^api-token-verify/', verify_jwt_token, name='verify-api-token'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
-    # Core
-    url(r'core/$', api_core, name='core-root'),
-    url(r'^core/', include('core.urls', namespace='core')),
+    # # Core
+    # url(r'core/$', api_core, name='core-root'),
+    # url(r'^core/', include('core.urls', namespace='core')),
 
     # API Version
     url(r'^v1/$', api_v1_root, name='v1-root'),

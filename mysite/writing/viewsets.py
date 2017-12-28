@@ -5,6 +5,7 @@ from rest_framework import filters
 from rest_framework_extensions.mixins import NestedViewSetMixin
 
 from drf_haystack.viewsets import HaystackViewSet
+from drf_haystack.filters import HaystackAutocompleteFilter
 
 from .models import Writer, Document
 from .search_indexes import DocumentIndex
@@ -37,3 +38,4 @@ class DocumentSearchViewSet(HaystackViewSet):
     index_models = [Document]
     serializer_class = DocumentSearchSerializer
     permission_classes = (permissions.IsAuthenticated, )
+    filter_backends = [HaystackAutocompleteFilter]

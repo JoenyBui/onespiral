@@ -1,3 +1,5 @@
+import os
+
 from django.shortcuts import render
 from django.views.generic import View
 
@@ -42,7 +44,7 @@ def api_root(request, format=None):
     return Response({
         "v1": reverse("v1-root", request=request, format=format),
         "friendship": reverse("rest_friendship:api-root", request=request, format=format),
-        "core": reverse("core-root", request=request, format=format),
+        # "core": reverse("core-root", request=request, format=format),
         "obtain api token auth": reverse("api-token", request=request, format=format),
         "refresh api token auth": reverse("refresh-api-token", request=request, format=format),
         "verify token auth": reverse("verify-api-token", request=request, format=format),
@@ -66,8 +68,10 @@ def api_rest_auth(request, format=None):
 @permission_classes((permissions.AllowAny,))
 def api_core(request, format=None):
     return Response({
-        "profile": reverse("core:core_profile_detail", request=request, format=format),
-        "firebase-token": reverse("core:core_firebase_token", request=request, format=format)
+        # "core": reverse("v1:core-url:api-root", request=request, format=format),
+        "profile": reverse("v1:core-url:core_profile_detail", request=request, format=format),
+        "search": os.path.join(reverse("v1:core-url:core_profile_detail", request=request, format=format), 'search'),
+        "firebase-token": reverse("v1:core-url:core_firebase_token", request=request, format=format)
         # "role": reverse("core:core_role_detail", request=request, format=format)
     })
 
@@ -76,7 +80,7 @@ def api_core(request, format=None):
 @permission_classes((permissions.AllowAny,))
 def api_v1_root(request, format=None):
     return Response({
-        # "editor": reverse("v1:editor:api-root", request=request, format=format),
+        "core": reverse("v1:v1-core", request=request, format=format),
         "classroom": reverse("v1:classroom:api-root", request=request, format=format),
         "writing": reverse("v1:writing:api-root", request=request, format=format)
         # "problem": reverse("v1:problem:api-root", request=request, format=format),

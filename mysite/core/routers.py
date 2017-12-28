@@ -5,5 +5,5 @@ from . import viewsets
 
 router = ExtendedDefaultRouter()
 
-router.register(r'profile', viewsets.ProfileDetailViewSets, 'profiles')
-# router.register(r'role', viewsets.UserRoleDetailViewSet, 'roles')
+router.register(r'profile/search', viewsets.ProfileSearchViewSet, base_name='profile-search')
+# profile_router = router.register(r'profile', viewsets.ProfileDetailViewSets, 'profile')

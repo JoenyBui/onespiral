@@ -47,5 +47,9 @@ class DocumentSearchSerializer(HaystackSerializer):
     class Meta:
         index_classes = [DocumentIndex]
         fields = [
-            'text', 'title', 'user'
+            'text', 'title', 'user', 'autocomplete'
         ]
+        ignore_fields = ["text", "autocomplete"]
+        field_aliases = {
+            "q": "autocomplete"
+        }

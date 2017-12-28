@@ -16,6 +16,31 @@ class Profile(models.Model):
     avatar = models.CharField(max_length=30, blank=True)
     uuid = models.UUIDField(default=uuid.uuid4, unique=True)
 
+    @property
+    def first_name(self):
+        return self.user.first_name
+
+    @first_name.setter
+    def first_name(self, value):
+        self.user.first_name = value
+
+    @property
+    def last_name(self):
+        return self.user.last_name
+
+    @last_name.setter
+    def last_name(self, value):
+        self.user.last_name = value
+
+    @property
+    def email(self):
+        return self.user.email
+
+    @email.setter
+    def email(self, value):
+        self.user.email = value
+
+
 
 # Add additional methods to user
 def get_uuid(**kwargs):
