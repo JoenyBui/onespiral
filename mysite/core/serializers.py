@@ -13,6 +13,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     Profile Serializer
 
     """
+    uuid = serializers.ReadOnlyField(source='profile.uuid')
     first_name = serializers.CharField()
     last_name = serializers.CharField()
     email = serializers.CharField()
@@ -25,7 +26,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'birth_date', 'avatar')
+        fields = ('uuid', 'first_name', 'last_name', 'email', 'birth_date', 'avatar')
 
     def create(self, validated_data):
         profile_data = validated_data.pop('profile', None)
@@ -52,7 +53,7 @@ class ProfileSearchSerializer(HaystackSerializer):
     class Meta:
         index_classes = [ProfileIndex]
         fields = [
-            'text', 'first_name', 'last_name', 'email', 'autocomplete'
+            'text', 'first_name', 'last_name', 'email', 'uuid', 'autocomplete'
         ]
         ignore_fields = ["text", "autocomplete"]
         field_aliases = {

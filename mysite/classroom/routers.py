@@ -31,6 +31,8 @@ class_router.register(r'teachers',
                       base_name='class-teacher',
                       parents_query_lookups=['class'])
 
+class_passcode_router = router.register(r'passcode', viewsets.ClassroomPasscodeModelViewSet, 'passcode')
+
 # from rest_framework.routers import
 # exam_problem_router = router.register(r'exam-problems', viewsets.ExamProblemsModelViewSet, base_name='exam-problems')
 

@@ -4,9 +4,9 @@ from rest_framework import filters
 
 from rest_framework_extensions.mixins import NestedViewSetMixin
 
-from .models import Teacher, Student, Class
+from .models import Teacher, Student, Class, ClassroomPasscode
 
-from .serializers import TeacherSerializer, StudentSerializers, ClassSerializer
+from .serializers import TeacherSerializer, StudentSerializers, ClassSerializer, ClassroomPasscodeSerializer
 
 
 __author__ = 'jbui'
@@ -32,6 +32,7 @@ class StudentModelViewSets(NestedViewSetMixin, viewsets.ModelViewSet):
     serializer_class = StudentSerializers
     permission_classes = (permissions.IsAuthenticated, )
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    lookup_field = 'uuid'
 
 
 class ClassModelViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
@@ -41,3 +42,11 @@ class ClassModelViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated, )
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
 
+
+class ClassroomPasscodeModelViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+
+    queryset = ClassroomPasscode.objects.all()
+    serializer_class = ClassroomPasscodeSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    lookup_field = 'passcode'

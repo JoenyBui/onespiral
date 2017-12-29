@@ -17,7 +17,7 @@ class Writer(models.Model):
 
 class DocumentLink(models.Model):
     from_user = models.ForeignKey(Writer, related_name='document_link_from_user')
-    to_user = models.ForeignKey(Writer, related_name='document_link_to_userr')
+    to_user = models.ForeignKey(Writer, related_name='document_link_to_user')
     permission = models.IntegerField(default=0)
     modified = models.DateTimeField(default=timezone.now)
 

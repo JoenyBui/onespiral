@@ -11,6 +11,7 @@ class ProfileIndex(indexes.SearchIndex, indexes.Indexable):
     first_name = indexes.CharField(model_attr='first_name')
     last_name = indexes.CharField(model_attr='last_name')
     email = indexes.CharField(model_attr='email')
+    uuid = indexes.CharField(model_attr='profile.uuid')
 
     def get_model(self):
         return User
