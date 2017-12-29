@@ -35,6 +35,9 @@ class DocumentModelViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         return Document.objects.filter(writer=self.request.user.writer)
 
+    def perform_create(self, serializer):
+        serializer.save(writer=self.request.user.writer)
+
 
 class DocumentSearchViewSet(HaystackViewSet):
     index_models = [Document]

@@ -23,6 +23,7 @@ class WriterSerializers(serializers.ModelSerializer):
 
 class DocumentSerializers(serializers.ModelSerializer):
     user_uuid = serializers.ReadOnlyField(source='writer.user.profile.uuid')
+    uuid = serializers.ReadOnlyField()
 
     class Meta:
         model = Document
