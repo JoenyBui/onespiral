@@ -2,6 +2,7 @@
 from __future__ import unicode_literals, print_function
 
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -13,15 +14,32 @@ from rest_framework import filters
 from rest_framework.decorators import detail_route, list_route
 from friendship.models import Friend, FriendshipRequest, Follow
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 
-from .serializers import get_user_serializer, FriendshipRequestSerializer, FriendsSerializer, FollowSerializer
+from .serializers import get_user_serializer, UserSerializer, FriendshipRequestSerializer, FriendsSerializer, FollowSerializer
 
 
-class FriendsModelViewSets(viewsets.ModelViewSet):
+class FriendsModelViewSets(viewsets.ReadOnlyModelViewSet):
+    # queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (permissions.IsAuthenticated, )
+    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    search_fields = ('first_name', 'last_name', 'email')
+    lookup_field = 'profile__uuid'
+
+    def get_queryset(self):
+        friends = Friend.objects.friends(user=self.request.user)
+        return User.objects.filter(pk__in=[x.pk for x in friends])
+
+
+class FriendshipModelViewSets(viewsets.ReadOnlyModelViewSet):
     queryset = Friend.objects.all()
     serializer_class = FriendsSerializer
     permission_classes = (permissions.IsAuthenticated, )
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+
+    def get_queryset(self):
+        return Friend.objects.filter(Q(from_user=self.request.user) | Q(to_user=self.request.user))
 
 
 class FriendshipRequestViewSet(viewsets.ModelViewSet):
@@ -30,12 +48,18 @@ class FriendshipRequestViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated, )
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
 
+    def get_queryset(self):
+        return FriendshipRequest.objects.filter(to_user=self.request.user)
+
 
 class FollowModelViewSet(viewsets.ModelViewSet):
     queryset = Follow.objects.all()
     serializer_class = FollowSerializer
     permission_classes = (permissions.IsAuthenticated,)
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+
+    def get_queryset(self):
+        return Follow.objects.filter(followee=self.request.user)
 
 
 class _FriendViewSet(viewsets.ViewSet):

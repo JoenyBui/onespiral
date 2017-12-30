@@ -43,7 +43,6 @@ def api_root(request, format=None):
     # })
     return Response({
         "v1": reverse("v1-root", request=request, format=format),
-        "friendship": reverse("rest_friendship:api-root", request=request, format=format),
         # "core": reverse("core-root", request=request, format=format),
         "obtain api token auth": reverse("api-token", request=request, format=format),
         "refresh api token auth": reverse("refresh-api-token", request=request, format=format),
@@ -82,7 +81,8 @@ def api_v1_root(request, format=None):
     return Response({
         "core": reverse("v1:v1-core", request=request, format=format),
         "classroom": reverse("v1:classroom:api-root", request=request, format=format),
-        "writing": reverse("v1:writing:api-root", request=request, format=format)
+        "writing": reverse("v1:writing:api-root", request=request, format=format),
+        "friendship": reverse("v1:rest_friendship:api-root", request=request, format=format),
         # "problem": reverse("v1:problem:api-root", request=request, format=format),
         # "math": reverse("v1:math:api-root", request=request, format=format),
         # "reading": reverse("v1:reading:api-root", request=request, format=format),
