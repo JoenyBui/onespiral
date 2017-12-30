@@ -16,6 +16,9 @@ class Profile(models.Model):
     avatar = models.CharField(max_length=30, blank=True)
     uuid = models.UUIDField(default=uuid.uuid4, unique=True)
 
+    def __unicode__(self):
+        return self.user.get_full_name()
+
     @property
     def first_name(self):
         return self.user.first_name

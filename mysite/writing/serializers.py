@@ -7,27 +7,60 @@ from rest_framework.reverse import reverse
 
 from drf_haystack.serializers import HaystackSerializer
 
-from .models import Writer, Document
+from core.models import Profile
+from .models import Writer, Document, DocumentLink
 from .search_indexes import DocumentIndex
 
 __author__ = 'jbui'
 
 
+class WriterField(serializers.Field):
+    def to_representation(self, value):
+        return value.user.profile.uuid
+
+    def to_internal_value(self, data):
+        return Writer.objects.get(user__profile__uuid=data)
+
+
 class WriterSerializers(serializers.ModelSerializer):
     user_uuid = serializers.ReadOnlyField(source='user.profile.uuid')
+    full_name = serializers.SerializerMethodField(source='get_full_name')
+    documents = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='uuid'
+    )
 
     class Meta:
         model = Writer
-        fields = ('user_uuid',)
+        fields = ('user_uuid', 'full_name', 'documents')
+
+    def get_full_name(self, obj):
+        return obj.user.get_full_name()
 
 
 class DocumentSerializers(serializers.ModelSerializer):
-    user_uuid = serializers.ReadOnlyField(source='writer.user.profile.uuid')
-    uuid = serializers.ReadOnlyField()
+    writer = WriterField()
+    shared = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='uuid'
+    )
 
     class Meta:
         model = Document
-        fields = ('uuid', 'title', 'user_uuid', 'created', 'modified')
+        fields = ('uuid', 'title', 'writer', 'created', 'modified', 'shared')
+        read_only_fields = ('uuid', 'modified',)
+
+
+class DocumentLinkSerializer(serializers.ModelSerializer):
+    doc_uuid = serializers.SlugRelatedField(source='doc', queryset=Document.objects.all(), slug_field='uuid')
+    to_user = WriterField()
+
+    class Meta:
+        model = DocumentLink
+        fields = ('uuid', 'doc_uuid', 'to_user', 'permission', 'modified')
+        read_only_fields = ('uuid', 'modified',)
 
 
 class DocumentSearchSerializer(HaystackSerializer):
