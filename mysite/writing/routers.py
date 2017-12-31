@@ -17,10 +17,10 @@ writer_router.register(r'document',
                        viewsets.DocumentModelViewSet,
                        base_name='writer-document',
                        parents_query_lookups=['writer__user__profile__uuid'])
+writer_router.register(r'shared',
+                       viewsets.SharedDocumentLinkViewSet,
+                       base_name='writer-shared-document',
+                       parents_query_lookups=['to_user__user__profile__uuid'])
 
 
-me_router = router.register(r'me', viewsets.MeWriterModelViewSet, base_name='me-writer')
-me_router.register(r'document',
-                   viewsets.DocumentModelViewSet,
-                   base_name='me-writer-document',
-                   parents_query_lookups=['writer__user__profile__uuid'])
+router.register(r'shared-document', viewsets.SharedDocumentLinkViewSet, base_name='shared-document-link')

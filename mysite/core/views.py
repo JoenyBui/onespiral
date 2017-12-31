@@ -23,10 +23,12 @@ def get_firebase_minted_token(request, format=None):
 
         # Return the minted key.
         return Response({
-            'token': auth.create_custom_token(uid=str(profile.uuid))
+            'token': auth.create_custom_token(uid=str(profile.uuid)),
+            'uuid': str(profile.uuid)
         }, status=status.HTTP_200_OK)
 
     else:
         return Response({
-            'token': None
+            'token': None,
+            'uuid': None
         }, status=status.HTTP_401_UNAUTHORIZED)

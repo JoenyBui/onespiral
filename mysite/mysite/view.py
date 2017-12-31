@@ -67,7 +67,7 @@ def api_rest_auth(request, format=None):
 @permission_classes((permissions.AllowAny,))
 def api_core(request, format=None):
     return Response({
-        # "core": reverse("v1:core-url:api-root", request=request, format=format),
+        "me": os.path.join(reverse("v1:v1-core", request=request, format=format), 'me'),
         "profile": reverse("v1:core-url:core_profile_detail", request=request, format=format),
         "search": os.path.join(reverse("v1:core-url:core_profile_detail", request=request, format=format), 'search'),
         "firebase-token": reverse("v1:core-url:core_firebase_token", request=request, format=format)
