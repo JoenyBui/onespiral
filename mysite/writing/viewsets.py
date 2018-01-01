@@ -3,6 +3,9 @@ from rest_framework import permissions
 from rest_framework import filters
 from rest_framework import generics
 
+from django.shortcuts import get_object_or_404
+from django.db.models import Q
+
 from rest_framework_extensions.mixins import NestedViewSetMixin
 
 from drf_haystack.viewsets import HaystackViewSet
@@ -84,8 +87,8 @@ class DocumentSearchViewSet(HaystackViewSet):
     filter_backends = [HaystackAutocompleteFilter]
 
 
-class MeWriterModelViewSet(WriterModelViewSet):
-    serializer_class = MeWriterSerializer
-
-    def get_queryset(self):
-        return Writer.objects.filter(user=self.request.user)
+# class MeWriterModelViewSet(WriterModelViewSet):
+#     serializer_class = MeWriterSerializer
+#
+#     def get_queryset(self):
+#         return Writer.objects.filter(user=self.request.user)

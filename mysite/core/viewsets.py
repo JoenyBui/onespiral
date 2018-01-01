@@ -14,6 +14,14 @@ from django.contrib.auth.models import User
 from .serializers import ProfileSerializer, ProfileSearchSerializer
 
 
+class ProfileModelViewSets(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = ProfileSerializer
+    permission_classes = (permissions.IsAuthenticated, )
+    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    lookup_field = 'profile__uuid'
+
+
 class ProfileDetailViewSets(RetrieveUpdateAPIView):
     serializer_class = ProfileSerializer
     permission_classes = (permissions.IsAuthenticated,)
@@ -27,3 +35,5 @@ class ProfileSearchViewSet(HaystackViewSet):
     serializer_class = ProfileSearchSerializer
     permission_classes = (permissions.IsAuthenticated, )
     filter_backends = [HaystackAutocompleteFilter]
+
+

@@ -32,14 +32,41 @@ class FriendsModelViewSets(viewsets.ReadOnlyModelViewSet):
         return User.objects.filter(pk__in=[x.pk for x in friends])
 
 
-class FriendshipModelViewSets(viewsets.ReadOnlyModelViewSet):
+class FriendshipViewSet(viewsets.ViewSet):
+    queryset = Friend.objects.all()
+
+    def list(self, request):
+        queryset = Friend.objects.filter(to_user=self.request.user)
+        serializer = FriendsSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        queryset = Friend.objects.filter(to_user=self.request.user)
+        user = get_object_or_404(queryset, pk=pk)
+        serializer = FriendsSerializer(user)
+        return Response(serializer.data)
+
+    def create(self, request):
+        pass
+
+    def update(self, request, pk=None):
+        pass
+
+    def partial_update(self, request, pk=None):
+        pass
+
+    def destroy(self, request, pk=None):
+        pass
+
+
+class FriendshipModelViewSets(viewsets.ModelViewSet):
     queryset = Friend.objects.all()
     serializer_class = FriendsSerializer
     permission_classes = (permissions.IsAuthenticated, )
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
 
-    def get_queryset(self):
-        return Friend.objects.filter(Q(from_user=self.request.user) | Q(to_user=self.request.user))
+    # def get_queryset(self):
+    #     return Friend.objects.filter(Q(from_user=self.request.user) | Q(to_user=self.request.user))
 
 
 class FriendshipRequestViewSet(viewsets.ModelViewSet):
@@ -48,8 +75,8 @@ class FriendshipRequestViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated, )
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
 
-    def get_queryset(self):
-        return FriendshipRequest.objects.filter(to_user=self.request.user)
+    # def get_queryset(self):
+    #     return FriendshipRequest.objects.filter(to_user=self.request.user)
 
 
 class FollowModelViewSet(viewsets.ModelViewSet):
@@ -58,8 +85,8 @@ class FollowModelViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
 
-    def get_queryset(self):
-        return Follow.objects.filter(followee=self.request.user)
+    # def get_queryset(self):
+    #     return Follow.objects.filter(followee=self.request.user)
 
 
 class _FriendViewSet(viewsets.ViewSet):
