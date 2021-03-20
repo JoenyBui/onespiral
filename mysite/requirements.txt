@@ -45,7 +45,7 @@ grpcio==1.8.1
 gunicorn==19.7.1
 idna==2.6
 itypes==1.1.0
-Jinja2==2.9.6
+Jinja2==2.11.3
 jsonfield==2.0.2
 Markdown==2.6.9
 MarkupSafe==1.0
